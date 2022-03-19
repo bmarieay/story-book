@@ -15,9 +15,11 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 //middlewares
-if(process.env.NODE_ENV === 'development'){
+if(process.env.NODE_ENV !== 'production'){
     app.use(morgan('dev'));
 }
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 
 
