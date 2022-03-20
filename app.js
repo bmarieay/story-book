@@ -5,8 +5,10 @@ const path = require('path');
 const morgan = require('morgan');
 const ejsMate = require('ejs-mate');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const passport = require('passport');
 const connectDB = require('./config/db');
+
 
 //load configurations
 dotenv.config({ path: './config/config.env'});
@@ -27,8 +29,10 @@ if(process.env.NODE_ENV !== 'production'){
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/storyBooks' })
 }))
+
 
 //passport middleware (session is used for passport deserialization)
 app.use(passport.initialize());
