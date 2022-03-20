@@ -28,23 +28,17 @@ app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: false
-  }))
+}))
 
-//passport middleware
+//passport middleware (session is used for passport deserialization)
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
-
 //routes
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
-
-
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
