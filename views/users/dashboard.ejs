@@ -1,0 +1,27 @@
+<% layout('layouts/boilerplate') %> 
+<h1 class="pt-5"><%= name %>'s Dashboard</h2>
+<button class="btn btn-success"><a href="/stories/new">Create a story</a></button>
+<% if(stories.length){%> 
+    <table class="table mt-4">
+        <thead>
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+            <!-- create table rows for each story -->
+            <% for(let story of stories) {%> 
+                <tr>
+                    <td scope="row"><%= story.title %></td>
+                    <td><%= story.createdAt %></td>
+                    <td><%= story.status %></td>
+                  </tr>
+            <% } %> 
+        </tbody>
+      </table>
+<% } else {%> 
+   <p> You have not yet created a story</p>
+   <a href="/stories/new">Create a story</a>
+<% } %> 

@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const bodyParser = require('body-parser');
-//ensure a user is authenticated to protect dashboard route
-//ensure a user is a guest to prevent loggin in again
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
-const {ensureAuthentication, ensureGuest} = require('../middleware/authentication');
+const {ensureAuthentication} = require('../middleware/authentication');
+const Story = require('../models/Story');
 
 //@DESC         view all posts from diff users
 //@ROUTE        GET /stories
@@ -13,10 +12,25 @@ router.get('/', (req, res) => {
 })
 
 
-//@DESC         create a new story
-//@ROUTE        GET /stories/new
-router.post('/new', urlencodedParser, (req, res) => {
-    res.send(req.body)
+
+//@DESC         add the new story to database
+//@ROUTE        POST /stories/new
+router.get('/new', ensureAuthentication, (req, res) => {
+    res.render('stories/new')
+})
+
+
+//@DESC         add the new story to database
+//@ROUTE        POST /stories/new
+router.post('/new', ensureAuthentication, urlencodedParser, async (req, res) => {
+    try {
+        req.body.user = req.user.id;
+        await Story.create(req.body);
+        //redirect to my dashboard after saving
+        res.redirect('/dashboard');
+    } catch (error) {   
+        console.log(error);
+    }
 })
 
 module.exports = router;
