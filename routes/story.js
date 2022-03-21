@@ -11,13 +11,25 @@ router.get('/', (req, res) => {
     res.render('stories/index');
 })
 
-
-
 //@DESC         add the new story to database
 //@ROUTE        POST /stories/new
 router.get('/new', ensureAuthentication, (req, res) => {
     res.render('stories/new');
 })
+
+//@DESC         view single post
+//@ROUTE        GET /stories/:id
+router.get('/:id', async (req, res) => {
+    const {id} = req.params;
+    try {
+        const story = await Story.findById(id);
+        return res.render('stories/show', {story})
+    } catch (error) {
+        console.log(error)
+    }
+})
+
+
 
 
 //@DESC         add the new story to database

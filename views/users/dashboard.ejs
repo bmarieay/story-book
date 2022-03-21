@@ -13,11 +13,13 @@
         <tbody>
             <!-- create table rows for each story -->
             <% for(let story of stories) {%> 
-                <tr>
-                    <td scope="row"><%= story.title %></td>
-                    <td><%= story.createdAt %></td>
-                    <td><%= story.status %></td>
+                
+                  <tr>
+                    <td scope="row"><a href="/stories/<%= story._id %> "><%= story.title %></a></td>
+                      <td><%= story.createdAt %></td>
+                      <td><%= story.status %></td>
                   </tr>
+                
             <% } %> 
         </tbody>
       </table>
