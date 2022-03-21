@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
 //@DESC         add the new story to database
 //@ROUTE        POST /stories/new
 router.get('/new', ensureAuthentication, (req, res) => {
-    res.render('stories/new')
+    res.render('stories/new');
 })
 
 

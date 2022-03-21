@@ -9,6 +9,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const passport = require('passport');
 const connectDB = require('./config/db');
+const ApplicationError = require('./utils/ApplicationError');
 
 
 //load configurations
@@ -41,11 +42,29 @@ app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images/favicon.svg')));
+//get the user for every route
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    next();
+})
 
 //routes
 app.use('/stories', require('./routes/story'));
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
+
+
+//ROUTE NOT FOUND
+app.all('*', (req, res, next) => {
+    next(new ApplicationError('Page not Found', 404))
+})
+
+// error handler
+app.use((err, req, res, next) => {
+    const {statusCode = 500} = err;
+    if(!err.message) err.message = 'Oh No, Something Went Wrong!'
+    res.status(statusCode).render('error', {err});
+})
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

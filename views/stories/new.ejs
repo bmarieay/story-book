@@ -2,11 +2,11 @@
 <form class="mt-5" target="/stories/new" method="POST">
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
-      <input type="text" class="form-control" id="title" name="title">
+      <input type="text" class="form-control" id="title" name="title" required aria-required="true">
     </div>
     <div class="mb-3">
         <label for="status">Status</label>
-        <select class="form-select mb-3" aria-label="select status" id="status" name="status">
+        <select class="form-select mb-3" aria-label="select status" id="status" name="status" required aria-required="true">
             <option value="public" selected aria-selected="true">Public</option>
             <option value="private">Two</option>
         </select>
@@ -14,7 +14,7 @@
     <div class="mb-3">
         <label for="body">Tell Us Your Story</label>
         <div class="form-floating">
-            <textarea class="form-control" placeholder="Your story" id="body" name="body"></textarea>
+            <textarea class="form-control" placeholder="Your story" id="body" name="body" required aria-required="true"></textarea>
         </div>
     </div>
     <div class="pt-3">
