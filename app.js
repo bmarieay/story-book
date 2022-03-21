@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const app = express();
 const path = require('path');
 const morgan = require('morgan');
+const favicon = require('serve-favicon');
 const ejsMate = require('ejs-mate');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
@@ -39,6 +40,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon(path.join(__dirname, 'public', 'images/favicon.svg')));
 
 //routes
 app.use('/stories', require('./routes/story'));
