@@ -7,8 +7,15 @@ const Story = require('../models/Story');
 
 //@DESC         view all posts from diff users
 //@ROUTE        GET /stories
-router.get('/', (req, res) => {
-    res.render('stories/index');
+router.get('/', async(req, res) => {
+    try {
+        const stories = await Story.find({status: 'public'})
+        .populate('user')
+        .sort({createdAt: 'desc'});
+        return res.render('stories/index', {stories});
+    } catch (error) {
+        console.log(error);
+    }
 })
 
 //@DESC         add the new story to database
