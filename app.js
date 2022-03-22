@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const app = express();
 const path = require('path');
 const morgan = require('morgan');
+const moment = require('moment');
 const favicon = require('serve-favicon');
 const ejsMate = require('ejs-mate');
 const session = require('express-session');
@@ -45,6 +46,7 @@ app.use(favicon(path.join(__dirname, 'public', 'images/favicon.svg')));
 //get the user for every route
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
+    res.locals.moment = moment;
     next();
 })
 

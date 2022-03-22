@@ -16,7 +16,7 @@
                 
                   <tr>
                     <td scope="row"><a href="/stories/<%= story._id %> "><%= story.title %></a></td>
-                      <td><%= story.createdAt %></td>
+                      <td><%= moment(story.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a") %></td>
                       <td><%= story.status %></td>
                   </tr>
                 
