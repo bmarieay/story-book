@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 const {ensureAuthentication} = require('../middleware/authentication');
 const Story = require('../models/Story');
+const cutBody = require('../helpers/ejs');
+
 
 //@DESC         view all posts from diff users
 //@ROUTE        GET /stories
@@ -12,7 +14,7 @@ router.get('/', async(req, res) => {
         const stories = await Story.find({status: 'public'})
         .populate('user')
         .sort({createdAt: 'desc'});
-        return res.render('stories/index', {stories});
+        return res.render('stories/index', {helper: cutBody, stories});
     } catch (error) {
         console.log(error);
     }

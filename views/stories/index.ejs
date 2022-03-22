@@ -9,7 +9,7 @@
                 </div>
                 <div class="card-body"> 
                     <h5 class="card-title"><%= story.title %> </h5>
-                    <p class="card-text"><%= story.body %> </p>
+                    <p class="card-text"><%= helper.cutBody(story.body) %> </p>
                     <a href="/stories/<%= story._id %> " class="btn btn-secondary">Read More</a>
                     <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                 </div>
