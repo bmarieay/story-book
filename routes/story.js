@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 const {ensureAuthentication} = require('../middleware/authentication');
 const Story = require('../models/Story');
-const cutBody = require('../helpers/ejs');
+//cut longer stories and give permission to editing
+const {cutBody, showEditIcon} = require('../helpers/ejs');
 
 
 //@DESC         view all posts from diff users
@@ -14,7 +15,11 @@ router.get('/', async(req, res) => {
         const stories = await Story.find({status: 'public'})
         .populate('user')
         .sort({createdAt: 'desc'});
-        return res.render('stories/index', {helper: cutBody, stories});
+        console.log(showEditIcon);
+        return res.render('stories/index', 
+        {
+            cutBody, showEditIcon, stories
+        });
     } catch (error) {
         console.log(error);
     }
@@ -26,15 +31,21 @@ router.get('/new', ensureAuthentication, (req, res) => {
     res.render('stories/new');
 })
 
+
+router.get('/edit', ensureAuthentication, (req, res) => {
+    //TODO: EDIT FORM AND PATCH ROUTE
+    res.send("edit form");
+})
+
 //@DESC         view single post
 //@ROUTE        GET /stories/:id
 router.get('/:id', async (req, res) => {
     const {id} = req.params;
     try {
         const story = await Story.findById(id);
-        return res.render('stories/show', {story})
+        return res.render('stories/show', {story});
     } catch (error) {
-        console.log(error)
+        console.log(error);
     }
 })
 

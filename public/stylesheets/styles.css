@@ -29,3 +29,21 @@ a:hover{
     color: unset;
 }
 
+
+#edit-icon{
+    color: white;
+    background-color: rgb(20, 20, 189);
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    border: 2px solid black;
+    width: 30px;
+    padding-top: 5px;
+    height: 30px;
+    border-radius: 50%;
+    transition: transform 20ms ease-in;
+}
+
+#edit-icon:hover{
+    transform: scale(1.1);
+}

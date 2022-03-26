@@ -2,16 +2,16 @@
 <h1 class="pt-5">Public Stories</h1>
 <div class="row story-cards">
         <% for(let story of stories) {%> 
-            <div class="card text-center">
+            <div class="card text-center" id="dashboard-card">
+                <%- showEditIcon(currentUser.id, story.user.id) %> 
                 <div class="card-header">
                     <img class="icon" src="<%= story.user.image %> " alt="">
                     <%= story.user.displayName %> 
                 </div>
                 <div class="card-body"> 
                     <h5 class="card-title"><%= story.title %> </h5>
-                    <p class="card-text"><%= helper.cutBody(story.body) %> </p>
+                    <p class="card-text"><%= cutBody(story.body) %> </p>
                     <a href="/stories/<%= story._id %> " class="btn btn-secondary">Read More</a>
-                    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                 </div>
                 <div class="card-footer text-muted">
                     <%= moment(story.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a") %>        

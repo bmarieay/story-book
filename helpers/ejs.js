@@ -5,6 +5,13 @@ module.exports = {
         } else {
             return description;
         }
+    },
+    showEditIcon: function(user, author){
+        if(user === author) //check if current user is the author
+            return `<a href="/stories/edit"><i id="edit-icon" class="fas fa-edit fa-small"></i></a>`;
+        else 
+            return '';
     }
-    
 }
+
+//TODO HTML SANITIZE
