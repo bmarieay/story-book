@@ -1,20 +1,21 @@
 <% layout('layouts/boilerplate') %> 
+<h2>Edit Story</h2>
 <form class="mt-5" target="/stories/new" method="POST">
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
-      <input type="text" class="form-control" id="title" name="title" required aria-required="true">
+      <input type="text" class="form-control" id="title" name="title" required aria-required="true" value="<%= story.title %>">
     </div>
     <div class="mb-3">
         <label for="status">Status</label>
         <select class="form-select mb-3" aria-label="select status" id="status" name="status" required aria-required="true">
-            <option value="public" selected aria-selected="true">Public</option>
-            <option value="private">Private</option>
+            <option value="public" aria-selected="true" <%= selectOption(story.status, "public") %>>Public</option>
+            <option value="private" <%= selectOption(story.status, "private") %>>Private</option>
         </select>
     </div>
     <div class="mb-3">
         <label for="body">Tell Us Your Story</label>
         <div class="form-floating">
-            <textarea class="form-control" placeholder="Your story" id="body" name="body" required aria-required="true"></textarea>
+            <textarea class="form-control" placeholder="Your story" id="body" name="body" required aria-required="true"><%= story.body %></textarea>
         </div>
     </div>
     <div class="pt-3">

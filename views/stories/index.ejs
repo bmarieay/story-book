@@ -3,7 +3,7 @@
 <div class="row story-cards">
         <% for(let story of stories) {%> 
             <div class="card text-center" id="dashboard-card">
-                <%- showEditIcon(currentUser.id, story.user.id) %> 
+                <%- showEditIcon(currentUser.id, story.user.id, story.id) %> 
                 <div class="card-header">
                     <img class="icon" src="<%= story.user.image %> " alt="">
                     <%= story.user.displayName %> 
