@@ -1,6 +1,6 @@
 <% layout('layouts/boilerplate') %> 
 <h2>Edit Story</h2>
-<form class="mt-5" target="/stories/new" method="POST">
+<form class="mt-5" method="POST" action="/stories/<%= story.id %>?_method=PUT">
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
       <input type="text" class="form-control" id="title" name="title" required aria-required="true" value="<%= story.title %>">

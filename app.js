@@ -11,6 +11,8 @@ const MongoStore = require('connect-mongo');
 const passport = require('passport');
 const connectDB = require('./config/db');
 const ApplicationError = require('./utils/ApplicationError');
+const methodOverride = require('method-override');
+
 
 
 //load configurations
@@ -40,6 +42,9 @@ app.use(session({
 //passport middleware (session is used for passport deserialization)
 app.use(passport.initialize());
 app.use(passport.session());
+
+//method override for post and delete
+app.use(methodOverride('_method'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images/favicon.svg')));

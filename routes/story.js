@@ -5,7 +5,8 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false })
 const {ensureAuthentication} = require('../middleware/authentication');
 const Story = require('../models/Story');
 //cut longer stories and give permission to editing
-const {cutBody, showEditIcon} = require('../helpers/ejs');
+const {cutBody, showEditIcon, selectOption} = require('../helpers/ejs');
+const ApplicationError = require('../utils/ApplicationError');
 
 
 //@DESC         view all posts from diff users
@@ -32,10 +33,41 @@ router.get('/new', ensureAuthentication, (req, res) => {
 })
 
 
-router.get('/edit', ensureAuthentication, (req, res) => {
-    //TODO: EDIT FORM AND PATCH ROUTE
-    res.send("edit form");
+//@DESC         update the post to the server
+//@ROUTE        PUT /stories/:id
+router.put('/:id', ensureAuthentication, urlencodedParser, async(req, res) => {
+    try {
+        //get the id, update, then redirect to show route
+        const {id} = req.params;
+        await Story.findByIdAndUpdate(id, req.body);
+        return res.redirect(`/stories/${id}`);
+    } catch (error) {
+        console.log(error);
+    }
 })
+
+
+router.get('/:id/edit', ensureAuthentication, async (req, res) => {
+    try {
+        const {id} = req.params;
+        const story = await Story.findById(id);
+
+        if(!story){
+            throw new ApplicationError("Cannot find that story", 404);
+        }
+
+        if(req.user.id != story.user){
+            return res.redirect('/stories');
+        } else {
+            return res.render('stories/edit',{selectOption, story});
+        }
+    
+    } catch (error) {
+        console.log(error);
+    }
+
+})
+
 
 //@DESC         view single post
 //@ROUTE        GET /stories/:id
@@ -48,8 +80,6 @@ router.get('/:id', async (req, res) => {
         console.log(error);
     }
 })
-
-
 
 
 //@DESC         add the new story to database
