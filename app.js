@@ -12,6 +12,7 @@ const passport = require('passport');
 const connectDB = require('./config/db');
 const ApplicationError = require('./utils/ApplicationError');
 const methodOverride = require('method-override');
+const mongoSanitize = require('express-mongo-sanitize');
 
 
 
@@ -42,6 +43,9 @@ app.use(session({
 //passport middleware (session is used for passport deserialization)
 app.use(passport.initialize());
 app.use(passport.session());
+
+//prevent nosql injection
+app.use(mongoSanitize());
 
 //method override for post and delete
 app.use(methodOverride('_method'));

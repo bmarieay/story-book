@@ -30,7 +30,7 @@ a:hover{
 }
 
 
-#edit-icon{
+.edit-icon{
     color: white;
     background-color: rgb(20, 20, 189);
     position: absolute;
@@ -44,6 +44,22 @@ a:hover{
     transition: transform 20ms ease-in;
 }
 
-#edit-icon:hover{
+.edit-icon:hover{
     transform: scale(1.1);
+}
+
+
+.small-button{
+    padding: 2px 5px;
+
+}
+
+.btn-danger.small-button{
+    margin-left: 7px;
+}
+
+
+#deleteForm{
+    display: inline;
+    
 }

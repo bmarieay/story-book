@@ -9,6 +9,7 @@ const {cutBody, showEditIcon, selectOption} = require('../helpers/ejs');
 const ApplicationError = require('../utils/ApplicationError');
 
 
+
 //@DESC         view all posts from diff users
 //@ROUTE        GET /stories
 router.get('/', async(req, res) => {
@@ -39,8 +40,21 @@ router.put('/:id', ensureAuthentication, urlencodedParser, async(req, res) => {
     try {
         //get the id, update, then redirect to show route
         const {id} = req.params;
+        // const sanitizedBody = sanitizeHtml(...req.body);
         await Story.findByIdAndUpdate(id, req.body);
         return res.redirect(`/stories/${id}`);
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+
+router.delete('/:id', ensureAuthentication, async(req, res) => {
+    try {
+        const {id} = req.params;
+        await Story.findByIdAndDelete(id);
+        // res.send(deleted);
+        res.redirect('/dashboard');
     } catch (error) {
         console.log(error);
     }

@@ -8,7 +8,7 @@ module.exports = {
     },
     showEditIcon: function(user, author, story){
         if(user === author) //check if current user is the author
-            return `<a href="/stories/${story}/edit"><i id="edit-icon" class="fas fa-edit fa-small"></i></a>`;
+            return `<a href="/stories/${story}/edit"><i class="fas fa-edit fa-small edit-icon"></i></a>`;
         else 
             return '';
     },
