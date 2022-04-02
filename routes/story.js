@@ -53,7 +53,6 @@ router.delete('/:id', ensureAuthentication, async(req, res) => {
     try {
         const {id} = req.params;
         await Story.findByIdAndDelete(id);
-        // res.send(deleted);
         res.redirect('/dashboard');
     } catch (error) {
         console.log(error);

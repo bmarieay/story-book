@@ -19,7 +19,7 @@
                     <th scope="row"><a href="/stories/<%= story._id %> "><%= story.title %></a></td>
                       <td><%= moment(story.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a") %></td>
                       <td><%= story.status %></td>
-                      <td>
+                      <td id="actions">
                         <a href="/stories/<%= story.id %>/edit" class="btn btn-success small-button"><i class="fas fa-edit fa-small"></i></a>
                         <form method="POST" action="/stories/<%= story.id %>?_method=DELETE" id="deleteForm">
                           <button type="submit" class="btn btn-danger small-button"><i class="fa-solid fa-trash-can"></i></button>
@@ -32,5 +32,4 @@
       </table>
 <% } else {%> 
    <p> You have not yet created a story</p>
-   <a href="/stories/new">Create a story</a>
 <% } %> 

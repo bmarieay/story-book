@@ -1,8 +1,9 @@
 <% layout('layouts/boilerplate') %>
 <h1 class="pt-5">Public Stories</h1>
-<div class="row story-cards">
+<button class="btn btn-success"><a href="/stories/new">Create a story</a></button>
+<div class="container grid">
         <% for(let story of stories) {%> 
-            <div class="card text-center" id="dashboard-card">
+            <div class="card text-center">
                 <%- showEditIcon(currentUser.id, story.user.id, story.id) %> 
                 <div class="card-header">
                     <img class="icon" src="<%= story.user.image %> " alt="">
