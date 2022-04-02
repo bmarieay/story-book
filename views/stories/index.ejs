@@ -4,7 +4,9 @@
 <div class="container grid">
         <% for(let story of stories) {%> 
             <div class="card text-center">
-                <%- showEditIcon(currentUser.id, story.user.id, story.id) %> 
+                <% if(currentUser) {%> 
+                    <%- showEditIcon(currentUser.id, story.user.id, story.id) %> 
+                <% } %> 
                 <div class="card-header">
                     <img class="icon" src="<%= story.user.image %> " alt="">
                     <%= story.user.displayName %> 
