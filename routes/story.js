@@ -87,7 +87,7 @@ router.get('/:id/edit', ensureAuthentication, async (req, res) => {
 router.get('/:id', async (req, res) => {
     const {id} = req.params;
     try {
-        const story = await Story.findById(id);
+        const story = await Story.findById(id).populate('user');
         return res.render('stories/show', {story});
     } catch (error) {
         console.log(error);
