@@ -52,20 +52,19 @@ router.put('/:id', ensureAuthentication, urlencodedParser, async(req, res) => {
 router.delete('/:id', ensureAuthentication, async(req, res) => {
     try {
         const {id} = req.params;
-        const story = Story.findById(id);
+        const story = await Story.findById(id).populate('user');
 
         if(!story){
             throw new ApplicationError("Story trying to delete doesn't exist", 404);
         }
-        
-        if(req.user.id != story.user){
+
+
+        if(req.user.id != story.user.id){
             return res.redirect('/stories');
         } else {
             await Story.findByIdAndDelete(id);
             res.redirect('/dashboard');
         }
-
-
     } catch (error) {
         console.log(error);
     }
