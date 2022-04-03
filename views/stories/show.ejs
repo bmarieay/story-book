@@ -2,8 +2,10 @@
 <div class="container pt-5">
     <div class="card col col-md-6 offset-md-3 ">
         <div class="card-header py-3">
-            <img class="icon" src="<%= story.user.image %> " alt="none">
-            <p class="d-inline"><%= story.user.displayName %></p>
+            <a href="/user/<%= story.user.id %> ">
+                <img class="icon" src="<%= story.user.image %> " alt="none">
+                <p class="d-inline"><%= story.user.displayName %></p>
+            </a>
         </div>
         <div class="card-body"> 
             <h5 class="card-title mb-3"><%= story.title %> </h5>
