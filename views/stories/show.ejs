@@ -10,12 +10,14 @@
         <div class="card-body"> 
             <h5 class="card-title mb-3"><%= story.title %> </h5>
             <p class="card-text"><%= story.body %> </p>
-            <div class="pt-3">
-                <a href="/stories/<%= story.id %>/edit" class="btn btn-success small-button">Edit <i class="fas fa-edit fa-small"></i></a>
-                <form method="POST" action="/stories/<%= story.id %>?_method=DELETE" id="deleteForm">
-                  <button type="submit" class="btn btn-danger small-button">Delete <i class="fa-solid fa-trash-can"></i></button>
-                </form>
-            </div>
+            <% if(currentUser.id === story.user.id) {%> 
+                <div class="pt-3">
+                    <a href="/stories/<%= story.id %>/edit" class="btn btn-success small-button">Edit <i class="fas fa-edit fa-small"></i></a>
+                    <form method="POST" action="/stories/<%= story.id %>?_method=DELETE" id="deleteForm">
+                        <button type="submit" class="btn btn-danger small-button">Delete <i class="fa-solid fa-trash-can"></i></button>
+                    </form>
+                </div>
+            <% } %> 
         </div>
         <div class="card-footer text-muted">
             <%= moment(story.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a") %>        
