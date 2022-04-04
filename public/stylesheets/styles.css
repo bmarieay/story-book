@@ -30,10 +30,14 @@ a:hover{
     color: unset;
 }
 
+.clickable{
+    text-decoration: underline;
+}
+
 
 .edit-icon{
     color: white;
-    background-color: rgb(20, 20, 189);
+    background-color: rgb(0, 106, 255);
     position: absolute;
     right: -10px;
     top: -10px;
@@ -42,21 +46,44 @@ a:hover{
     padding-top: 5px;
     height: 30px;
     border-radius: 50%;
+}
+
+.small-button{
+    padding: 2px 2px;
+}
+
+.edit-icon,
+.small-button{
     transition: transform 20ms ease-in;
 }
 
-.edit-icon:hover{
+
+.edit-icon:hover,
+.small-button:hover{
     transform: scale(1.1);
 }
 
 
-.small-button{
-    padding: 2px 2px;
-
-}
 
 .btn-danger.small-button{
     margin-left: 7px;
+}
+
+.card{
+    border: 1px solid gray;
+}
+
+.profile-card{
+    padding: 2rem 0;
+}
+
+.card-header{
+    background-color: #ffc8cd;
+}
+
+.card-footer{
+    background-color: #ffeff1;
+    font-size: .9rem;
 }
 
 
@@ -89,6 +116,9 @@ a:hover{
         grid-column: 1/3;
     }
 
+    .no-story-label{
+        grid-column: 3/-1;
+    }
 
     .small-button{
         padding: 2px 5px;

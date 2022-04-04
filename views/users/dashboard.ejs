@@ -1,8 +1,8 @@
 <% layout('layouts/boilerplate') %> 
-<h1 class="pt-5"><%= name %>'s Dashboard</h2>
+<h2 class="pt-5 fs-1 pb-3"><%= name %>'s Dashboard</h2>
 <button class="btn btn-success"><a href="/stories/new">Create a story</a></button>
 <% if(stories.length){%> 
-    <table class="table mt-4">
+    <table class="table mt-5">
         <thead>
           <tr>
             <th scope="col">Title</th>
@@ -16,7 +16,7 @@
             <% for(let story of stories) {%> 
                 
                   <tr>
-                    <th scope="row"><a href="/stories/<%= story._id %> "><%= story.title %></a></td>
+                    <th scope="row"><a href="/stories/<%= story._id %>" class="clickable"><%= story.title %></a></td>
                       <td><%= moment(story.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a") %></td>
                       <td><%= story.status %></td>
                       <td id="actions">
