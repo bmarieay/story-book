@@ -17,7 +17,6 @@ router.get('/', async(req, res) => {
         const stories = await Story.find({status: 'public'})
         .populate('user')
         .sort({createdAt: 'desc'});
-        console.log(showEditIcon);
         return res.render('stories/index', 
         {
             cutBody, showEditIcon, stories
@@ -28,7 +27,7 @@ router.get('/', async(req, res) => {
 })
 
 //@DESC         add the new story to database
-//@ROUTE        POST /stories/new
+//@ROUTE        GET /stories/new
 router.get('/new', ensureAuthentication, (req, res) => {
     res.render('stories/new');
 })
@@ -40,7 +39,10 @@ router.put('/:id', ensureAuthentication, urlencodedParser, async(req, res) => {
     try {
         //get the id, update, then redirect to show route
         const {id} = req.params;
-        // const sanitizedBody = sanitizeHtml(...req.body);
+        const title = req.body.title;
+        const body = req.body.body;
+        req.body.body = body.replace(/(<([^>]+)>)/gi, "");
+        req.body.title = title.replace(/(<([^>]+)>)/gi, "");
         await Story.findByIdAndUpdate(id, req.body);
         return res.redirect(`/stories/${id}`);
     } catch (error) {
@@ -111,6 +113,10 @@ router.get('/:id', async (req, res) => {
 router.post('/new', ensureAuthentication, urlencodedParser, async (req, res) => {
     try {
         req.body.user = req.user.id;
+        const title = req.body.title;
+        const body = req.body.body;
+        req.body.body = body.replace(/(<([^>]+)>)/gi, "");
+        req.body.title = title.replace(/(<([^>]+)>)/gi, "");
         await Story.create(req.body);
         //redirect to my dashboard after saving
         res.redirect('/dashboard');
