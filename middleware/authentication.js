@@ -4,7 +4,7 @@ module.exports.ensureAuthentication = (req, res, next) => {
         return next();
     } else {
         //user not authorized to the route in
-        res.redirect('/login');
+        res.redirect('/');
     }
 }
 

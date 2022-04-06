@@ -14,7 +14,6 @@
         <tbody>
             <!-- create table rows for each story -->
             <% for(let story of stories) {%> 
-                
                   <tr>
                     <th scope="row"><a href="/stories/<%= story._id %>" class="clickable"><%= story.title %></a></td>
                       <td><%= moment(story.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a") %></td>
@@ -26,10 +25,9 @@
                         </form>
                       </td>
                   </tr>
-                
             <% } %> 
         </tbody>
       </table>
 <% } else {%> 
-   <p> You have not yet created a story</p>
+   <p class="pt-4"> You have not yet created a story</p>
 <% } %> 

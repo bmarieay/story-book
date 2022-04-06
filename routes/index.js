@@ -25,7 +25,7 @@ router.get('/user/:id', async(req, res) => {
 
 //@DESC         login page
 //@ROUTE        GET /login
-router.get('/login', ensureGuest, (req, res) => {
+router.get('/', ensureGuest, (req, res) => {
     res.render('users/login');
 })
 
@@ -33,7 +33,7 @@ router.get('/login', ensureGuest, (req, res) => {
 //@ROUTE        GET /logout
 router.get('/logout', (req, res) => {
     req.logout();
-    res.redirect('/login');
+    res.redirect('/');
 })
 
 //@DESC         Dashboard (user posts)

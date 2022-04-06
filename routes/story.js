@@ -97,7 +97,7 @@ router.get('/:id/edit', ensureAuthentication, async (req, res) => {
 
 //@DESC         view single post
 //@ROUTE        GET /stories/:id
-router.get('/:id', async (req, res) => {
+router.get('/:id', ensureAuthentication, async (req, res) => {
     const {id} = req.params;
     try {
         const story = await Story.findById(id).populate('user');
