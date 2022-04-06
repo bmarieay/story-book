@@ -33,7 +33,7 @@ if(process.env.NODE_ENV !== 'production'){
 
 //session middleware
 app.use(session({
-    secret: 'keyboard cat',
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({ mongoUrl: process.env.DB_URL })
