@@ -2,7 +2,6 @@ const express = require('express');
 const dotenv = require('dotenv');
 const app = express();
 const path = require('path');
-const morgan = require('morgan');
 const moment = require('moment');
 const favicon = require('serve-favicon');
 const ejsMate = require('ejs-mate');
@@ -27,10 +26,6 @@ app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-//middlewares
-if(process.env.NODE_ENV !== 'production'){
-    app.use(morgan('dev'));
-}
 
 //session middleware
 const secret = process.env.SECRET || 'keyboard cat';
