@@ -2,7 +2,6 @@ const express = require('express');
 const dotenv = require('dotenv');
 const app = express();
 const path = require('path');
-const morgan = require('morgan');
 const moment = require('moment');
 const favicon = require('serve-favicon');
 const ejsMate = require('ejs-mate');
@@ -17,7 +16,8 @@ const mongoSanitize = require('express-mongo-sanitize');
 
 
 //load configurations
-dotenv.config({ path: './config/config.env'});
+dotenv.config();
+// dotenv.config({ path: './config/config.env'});
 
 require('./config/passport')(passport);
 
@@ -26,14 +26,11 @@ app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-//middlewares
-if(process.env.NODE_ENV !== 'production'){
-    app.use(morgan('dev'));
-}
 
 //session middleware
+const secret = process.env.SECRET || 'keyboard cat';
 app.use(session({
-    secret: process.env.SECRET,
+    secret: secret,
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({ mongoUrl: process.env.DB_URL })
@@ -79,5 +76,5 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
 })
