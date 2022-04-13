@@ -17,7 +17,8 @@ const mongoSanitize = require('express-mongo-sanitize');
 
 
 //load configurations
-dotenv.config({ path: './config/config.env'});
+dotenv.config();
+// dotenv.config({ path: './config/config.env'});
 
 require('./config/passport')(passport);
 
