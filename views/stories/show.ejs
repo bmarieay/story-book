@@ -20,7 +20,30 @@
             <% } %> 
         </div>
         <div class="card-footer text-muted">
-            <%= moment(story.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a") %>        
+            <%= moment(story.createdAt).format("dddd, MMMM Do YYYY, h:mm a") %>        
         </div>
+
     </div>
+    <div class="col col-md-6 offest-md-3 ">
+        <form action="/stories/<%= story._id %>/reviews" method="POST">
+            <div class="mb-3">
+                <label for="body">Leave a comment</label>
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Your story" id="body" name="comment" required aria-required="true"></textarea>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <% if(story.comments.length) {%> 
+        <p class="col col-md-6 offset-md-3 mt-4">Comments:</p>
+        <% for(let comment of story.comments) {%> 
+            <p><%= comment.body %> </p>
+            <p>by: <%= comment.author.displayName %> </p>
+            <p><%= moment(comment.createdAt).format("dddd, MMMM Do YYYY, h:mm a") %></p>
+        <% } %> 
+    <% } else {%> 
+        <p> no comment</p>
+    <% } %> 
+
 </div>
