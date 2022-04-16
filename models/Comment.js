@@ -10,7 +10,7 @@ const commentSchema = new mongoose.Schema({
         default: Date.now
     },
     author: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }
 })

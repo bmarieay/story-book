@@ -17,7 +17,6 @@ const mongoSanitize = require('express-mongo-sanitize');
 
 //load configurations
 dotenv.config();
-// dotenv.config({ path: './config/config.env'});
 
 require('./config/passport')(passport);
 
@@ -33,7 +32,7 @@ app.use(session({
     secret: secret,
     resave: false,
     saveUninitialized: false,
-    store: MongoStore.create({ mongoUrl: process.env.DB_URL })
+    store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/storyBooks' })
 }))
 
 
@@ -60,6 +59,7 @@ app.use((req, res, next) => {
 app.use('/stories', require('./routes/story'));
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
+app.use('/stories/:id/reviews', require('./routes/comment'));
 
 
 //ROUTE NOT FOUND
