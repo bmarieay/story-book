@@ -8,7 +8,7 @@ const Story = require('../models/Story');
 const {ensureAuthentication} = require('../middleware/authentication');
 
 //@DESC         create a comment associated with the post 
-//@ROUTE        POST /review
+//@ROUTE        POST /stories/:id/comments
 router.post('/', ensureAuthentication, urlencodedParser, async(req, res) => {
     try {
         //get the story commented on 
@@ -24,6 +24,20 @@ router.post('/', ensureAuthentication, urlencodedParser, async(req, res) => {
         await story.save();
         await comment.save();
         res.redirect(`/stories/${story.id}`);
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+//@DESC         delete a comment associated with the post 
+//@ROUTE        DELETE /stories/:storyid/comments/:reviewid
+router.delete('/:commentId', ensureAuthentication, urlencodedParser, async(req, res) => {
+    try {
+        //delete the comment and delete it on the post
+        const {id, commentId} = req.params;
+        await Story.findByIdAndUpdate(id, { $pull: { comments: commentId } })
+        await Comment.findByIdAndDelete(commentId);
+        res.redirect(`/stories/${id}`);
     } catch (error) {
         console.log(error);
     }

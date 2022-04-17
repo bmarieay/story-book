@@ -59,7 +59,7 @@ app.use((req, res, next) => {
 app.use('/stories', require('./routes/story'));
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
-app.use('/stories/:id/reviews', require('./routes/comment'));
+app.use('/stories/:id/comments', require('./routes/comment'));
 
 
 //ROUTE NOT FOUND
