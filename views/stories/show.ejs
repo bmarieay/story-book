@@ -2,7 +2,7 @@
 <div class="container pt-5">
     <div class="card col col-md-6 offset-md-3 ">
         <div class="card-header py-3">
-            <a href="/user/<%= story.user.id %> ">
+            <a href="/user/<%= story.user.id %>">
                 <img class="icon" src="<%= story.user.image %> " alt="none">
                 <p class="d-inline"><%= story.user.displayName %></p>
             </a>
@@ -24,7 +24,7 @@
         </div>
 
     </div>
-    <div class="col col-md-6 offest-md-3 ">
+    <div class="col col-md-6 offset-md-3 mt-4">
         <form action="/stories/<%= story._id %>/reviews" method="POST">
             <div class="mb-3">
                 <label for="body">Leave a comment</label>
@@ -36,11 +36,19 @@
         </form>
     </div>
     <% if(story.comments.length) {%> 
-        <p class="col col-md-6 offset-md-3 mt-4">Comments:</p>
+        <p class="col col-md-6 offset-md-3 mt-4 mb-2">Comments:</p>
         <% for(let comment of story.comments) {%> 
-            <p><%= comment.body %> </p>
-            <p>by: <%= comment.author.displayName %> </p>
-            <p><%= moment(comment.createdAt).format("dddd, MMMM Do YYYY, h:mm a") %></p>
+            <div class="card col col-md-6 offset-md-3 mt-0 mb-3">
+                <div class="card-header py-1">
+                    <a class="mb-0" href="/user/<%=comment.author.id %>"><%= comment.author.displayName %></a>
+                </div>
+                <div class="card-body">
+                    <p class="mb-0"><%= comment.body %> </p>
+                </div>
+                <div class="card-footer">
+                    <p class="mb-0"><%= moment(comment.createdAt).format("dddd, MMMM Do YYYY, h:mm a") %></p>
+                </div>
+            </div>
         <% } %> 
     <% } else {%> 
         <p> no comment</p>
