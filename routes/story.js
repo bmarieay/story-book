@@ -5,7 +5,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false })
 const {ensureAuthentication} = require('../middleware/authentication');
 const Story = require('../models/Story');
 //cut longer stories and give permission to editing
-const {cutBody, showEditIcon, selectOption} = require('../helpers/ejs');
+const {cutBody, showEditIcon, selectOption, showNumComments, showDeleteIcon} = require('../helpers/ejs');
 const ApplicationError = require('../utils/ApplicationError');
 
 
@@ -15,11 +15,12 @@ const ApplicationError = require('../utils/ApplicationError');
 router.get('/', async(req, res) => {
     try {
         const stories = await Story.find({status: 'public'})
-        .populate('user')
+        .populate('user').populate('comments')
         .sort({createdAt: 'desc'});
+
         return res.render('stories/index', 
         {
-            cutBody, showEditIcon, stories
+            cutBody, showEditIcon, stories, showNumComments
         });
     } catch (error) {
         console.log(error);
@@ -51,6 +52,8 @@ router.put('/:id', ensureAuthentication, urlencodedParser, async(req, res) => {
 })
 
 
+//@DESC         delete the post to the database
+//@ROUTE        DELETE /stories/:id
 router.delete('/:id', ensureAuthentication, async(req, res) => {
     try {
         const {id} = req.params;
@@ -73,6 +76,8 @@ router.delete('/:id', ensureAuthentication, async(req, res) => {
 })
 
 
+//@DESC         load the edit form
+//@ROUTE        GET /stories/:id/edit
 router.get('/:id/edit', ensureAuthentication, async (req, res) => {
     try {
         const {id} = req.params;
@@ -100,8 +105,15 @@ router.get('/:id/edit', ensureAuthentication, async (req, res) => {
 router.get('/:id', ensureAuthentication, async (req, res) => {
     const {id} = req.params;
     try {
-        const story = await Story.findById(id).populate('user');
-        return res.render('stories/show', {story});
+        //populate the nested schemas for template access
+        const story = await Story.findById(id).populate('user')
+        .populate({
+            path: 'comments',
+            populate: {
+                path: 'author'
+            }
+        })
+        return res.render('stories/show', {story, showDeleteIcon});
     } catch (error) {
         console.log(error);
     }
