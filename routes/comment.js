@@ -31,7 +31,7 @@ router.post('/', ensureAuthentication, urlencodedParser, async(req, res) => {
 
 //@DESC         delete a comment associated with the post 
 //@ROUTE        DELETE /stories/:storyid/comments/:reviewid
-router.delete('/:commentId', ensureAuthentication, urlencodedParser, async(req, res) => {
+router.delete('/:commentId', ensureAuthentication, async(req, res) => {
     try {
         //delete the comment and delete it on the post
         const {id, commentId} = req.params;

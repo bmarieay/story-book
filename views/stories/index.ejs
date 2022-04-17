@@ -18,8 +18,9 @@
                     <p class="card-text"><%= cutBody(story.body) %> </p>
                     <a href="/stories/<%= story._id %> " class="btn btn-secondary">Read More</a>
                 </div>
-                <div class="card-footer text-muted">
-                    <%= moment(story.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a") %>        
+                <div class="card-footer text-muted text-start">
+                    <p class="mb-0"><%= moment(story.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a") %></p>
+                    <%=showNumComments(story.comments)%> 
                 </div>
           </div>
         <% } %> 

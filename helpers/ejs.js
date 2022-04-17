@@ -18,6 +18,12 @@ module.exports = {
         } else {
             return '';
         }
+    },
+    showNumComments: function(comments){
+        if(comments.length)
+            return comments.length + ' comments';
+        else
+            return comments.length + ' comment';
     }
 }
 
