@@ -24,7 +24,15 @@ module.exports = {
             return comments.length + ' comments';
         else
             return comments.length + ' comment';
-    }
+    },
+    showDeleteIcon: function(user, commentAuthor, comment, story){
+        if(user === commentAuthor) //check if current user is the author
+            return `<form method="POST" action="/stories/${story}/comments/${comment}?_method=DELETE">
+                        <button type="submit" class="btn btn-danger small-button"><i class="fa-solid fa-trash-can"></i></button>
+                    </form>`
+        else 
+            return '';
+    },
 }
 
 //TODO HTML SANITIZE

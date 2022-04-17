@@ -5,7 +5,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false })
 const {ensureAuthentication} = require('../middleware/authentication');
 const Story = require('../models/Story');
 //cut longer stories and give permission to editing
-const {cutBody, showEditIcon, selectOption, showNumComments} = require('../helpers/ejs');
+const {cutBody, showEditIcon, selectOption, showNumComments, showDeleteIcon} = require('../helpers/ejs');
 const ApplicationError = require('../utils/ApplicationError');
 
 
@@ -17,7 +17,7 @@ router.get('/', async(req, res) => {
         const stories = await Story.find({status: 'public'})
         .populate('user').populate('comments')
         .sort({createdAt: 'desc'});
-        
+
         return res.render('stories/index', 
         {
             cutBody, showEditIcon, stories, showNumComments
@@ -113,7 +113,7 @@ router.get('/:id', ensureAuthentication, async (req, res) => {
                 path: 'author'
             }
         })
-        return res.render('stories/show', {story});
+        return res.render('stories/show', {story, showDeleteIcon});
     } catch (error) {
         console.log(error);
     }
