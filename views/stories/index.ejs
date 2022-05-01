@@ -17,6 +17,27 @@
                     <h5 class="card-title"><%= story.title %> </h5>
                     <p class="card-text"><%= cutBody(story.body) %> </p>
                     <a href="/stories/<%= story._id %> " class="btn btn-secondary">Read More</a>
+
+                    <div class="reaction-container">
+                        <div class="single-reaction">
+                            <a href="" >
+                                <i class="fa-solid fa-thumbs-up" id="like-btn" ></i>
+                                <p>Like</p>
+                            </a>
+                        </div>
+                        <div class="single-reaction">
+                            <a href="" >
+                                <i class="fa-solid fa-heart" id="heart-btn"></i>
+                                <p>Heart</p>
+                            </a>
+                        </div>
+                        <div class="single-reaction">
+                            <a href="">
+                                <i class="fa-solid fa-face-laugh-squint"  id="laugh-btn"></i>
+                                <p>Haha</p>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-footer text-muted text-start">
                     <p class="mb-0"><%= moment(story.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a") %></p>
