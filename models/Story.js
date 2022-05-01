@@ -26,11 +26,16 @@ const StorySchema = new mongoose.Schema({
             ref: 'Comment'
         }
     ],
+    reactions: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Reaction'
+        }
+    ],
     createdAt: {
         type: Date,
         default: Date.now
     }
-
 })
 
 module.exports = mongoose.model('Story', StorySchema);
