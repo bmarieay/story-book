@@ -18,26 +18,26 @@
                     <p class="card-text"><%= cutBody(story.body) %> </p>
                     <a href="/stories/<%= story._id %> " class="btn btn-secondary">Read More</a>
 
-                    <div class="reaction-container">
-                        <div class="single-reaction">
-                            <a href="" >
+                    <form id="reaction-form" class="reaction-container" action="stories/<%=story.id%>/reactions" method="POST">
+                        <div class="single-reaction" >
+                            <a onclick="document.getElementById('reaction-form').submit();" >
                                 <i class="fa-solid fa-thumbs-up" id="like-btn" ></i>
                                 <p>Like</p>
                             </a>
                         </div>
-                        <div class="single-reaction">
-                            <a href="" >
+                        <div class="single-reaction" >
+                            <a onclick="document.getElementById('reaction-form').submit();" >
                                 <i class="fa-solid fa-heart" id="heart-btn"></i>
                                 <p>Heart</p>
                             </a>
                         </div>
-                        <div class="single-reaction">
-                            <a href="">
+                        <div class="single-reaction" >
+                            <a onclick="document.getElementById('reaction-form').submit();">
                                 <i class="fa-solid fa-face-laugh-squint"  id="laugh-btn"></i>
                                 <p>Haha</p>
                             </a>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="card-footer text-muted text-start">
                     <p class="mb-0"><%= moment(story.createdAt).format("dddd, MMMM Do YYYY, h:mm:ss a") %></p>

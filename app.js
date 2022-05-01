@@ -60,6 +60,7 @@ app.use('/stories', require('./routes/story'));
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
 app.use('/stories/:id/comments', require('./routes/comment'));
+app.use('/stories/:id/reactions', require('./routes/reaction'));
 
 
 //ROUTE NOT FOUND
